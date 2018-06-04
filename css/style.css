@@ -1,0 +1,147 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 0 0 100px;
+  position: relative;
+}
+
+.main-footer {
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #384868;
+  padding: 30px;
+  border-top: 4px solid #333;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  position: absolute;
+  width: 100%;
+}
+
+footer img.arrow {
+  position: fixed;
+  display: block;
+  opacity: 0.7;
+  bottom: 0;
+  right: 0;
+}
+
+a,
+h5.footer-text {
+  color: #baf0f7;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #47ff41;
+}
+
+.btn-info {
+  color: rgb(253, 239, 193);
+  border-radius: 5px;
+}
+
+#movies img,
+#movie img {
+  width: 100%;
+  min-height: 80%;
+  box-shadow: 2px 2px 8px rgb(168, 167, 167);
+  transition: 750ms;
+}
+
+#movies img:hover {
+  transform: scale(1.2);
+  box-shadow: 2px 2px 8px #ccc;
+  z-index: 2;
+}
+
+.well {
+  background: rgb(39, 48, 65);
+  margin: 20px 0px;
+  padding: 10px;
+}
+
+.list-group {
+  list-style: none;
+}
+
+/* Error page */
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.container .img-responsive {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+/* Place the button */
+.container .btn-secondary {
+  position: absolute;
+  top: 65%;
+  left: 65%;
+  transform: translate(-65%, -65%);
+  -ms-transform: translate(-65%, -65%);
+  color: #fff;
+  font-size: 17px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  width: auto;
+  height: auto;
+  opacity: 0.7;
+  margin-top: 20px;
+}
+
+.container img {
+  box-shadow: 2px 2px 8px #ccc;
+}
+
+@media (min-width: 960px) {
+  #movies .col-md-3 .well {
+    height: 490px;
+  }
+
+  #movie .col-md-3 img {
+    height: 340px;
+  }
+}
+
+@media (max-width: 760px) {
+  .container .btn-secondary,
+  .btn-primary,
+  .btn-info {
+    padding: 3px 8px;
+    font-size: 8px;
+    line-height: 1.5;
+    border-radius: 20px;
+    margin-top: -5px;
+  }
+
+  .container .btn-secondary {
+    margin-top: 5px;
+  }
+
+  .well:last-child {
+    margin-bottom: 25px;
+  }
+
+  footer img.arrow {
+    position: fixed !important;
+    opacity: 0.5;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+  }
+}
