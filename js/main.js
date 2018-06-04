@@ -16,7 +16,7 @@ $(document).ready(() => {
 });
 
 function getMovies(searchText) {
-  // Request to API using axios npm client
+  // Request to API using axios npm
   axios
     .get(
       "https://api.themoviedb.org/3/search/movie?api_key=fa155f635119344d33fcb84fb807649b&query=" +
@@ -28,7 +28,6 @@ function getMovies(searchText) {
       if (typeof movies === "undefined" || movies.length === 0) {
         errorPage();
       } else {
-        // Make output
         let output = "";
 
         $.each(movies, (index, movie) => {
@@ -72,7 +71,7 @@ function getMovie() {
   // Take 'movieId' from sessionStorage
   let movieId = sessionStorage.getItem("movieId");
 
-  // New Request using axios
+  // New request for single movie
   axios
     .get(
       "https://api.themoviedb.org/3/movie/" +
@@ -86,15 +85,14 @@ function getMovie() {
       let genres = movie.genres;
       let production_companies = movie.production_companies;
 
-      // Funciton get all properties of key 'name' - return strings
+      // Funciton get all values of key 'name' - return strings
       let getNames = function(prop) {
         return `${prop.map(val => val.name)}`;
       };
 
       const genreNames = getNames(genres);
 
-      const companieNames = getNames(production_companies);
-
+      const companyNames = getNames(production_companies);
       // ...end of init data
 
       // 'output' inside template string for single movie
@@ -126,7 +124,7 @@ function getMovie() {
                         <li class="list-item-group"><h5><strong>Rated: </strong>${
                           movie.vote_average
                         }</h5></li>
-                        <li class="list-item-group"><h5><strong>Production Companies: </strong>${companieNames}</h5></li>
+                        <li class="list-item-group"><h5><strong>Production Companies: </strong>${companyNames}</h5></li>
                      </ul>
                   </div>
                </div>
