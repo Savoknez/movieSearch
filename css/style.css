@@ -27,6 +27,7 @@ body {
 }
 
 footer img.arrow {
+  cursor: pointer;
   position: fixed;
   display: block;
   opacity: 0.7;
@@ -45,19 +46,21 @@ a:hover {
 }
 
 .btn-info {
-  color: rgb(253, 239, 193);
+  color: #000080;
   border-radius: 5px;
 }
 
 #movies img,
-#movie img {
+#movie img,
+#storedMovies img {
   width: 100%;
   min-height: 80%;
   box-shadow: 2px 2px 8px rgb(168, 167, 167);
   transition: 750ms;
 }
 
-#movies img:hover {
+#movies img:hover,
+#storedMovies img:hover {
   transform: scale(1.2);
   box-shadow: 2px 2px 8px #ccc;
   z-index: 2;
@@ -109,7 +112,8 @@ a:hover {
 }
 
 @media (min-width: 960px) {
-  #movies .col-md-3 .well {
+  #movies .col-md-3 .well,
+  #storedMovies .col-md-3 .well {
     height: 490px;
   }
 

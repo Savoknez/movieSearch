@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Movie Search Stored</title>
+</head>
+
+<link rel="shortcut icon" href="img/movie_favicon.ico" type="image/x-icon">
+
+<link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+
+<link rel="stylesheet" href="css/style.css">
+
+<body>
+   <div class="main">
+      <div class="navbar navbar-default">
+         <div class="container">
+            <div class="navbar-header">
+               <a href="index.html" class="navbar-brand">Movie Search</a>
+               <a href="index.html" onclick="clearStorage();" class="btn btn-primary">Home</a>
+            </div>
+         </div>
+      </div>
+
+      <div class="container">
+         <div class="jumbotron">
+            <h3 class="text-center" id="message"></h3>
+         </div>
+      </div>
+
+      <div class="container">
+         <div class="row" id="storedMovies">
+
+         </div>
+      </div>
+
+      <footer class="main-footer">
+         <h5 class="footer-text">Movie Search 2018</h5>
+         <img src="/img/arrow-up-icon.png" class="arrow" title="Back To Top">
+      </footer>
+   </div>
+
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js">
+   </script>
+
+   <script src="https://unpkg.com/axios/dist/axios.min.js">
+   </script>
+
+   <script src="js/main.js"></script>
+
+   <script>
+      getStoredObject();
+   </script>
+</body>
+
+</html>

@@ -1,14 +1,16 @@
-let arrow = document.querySelectorAll(".arrow");
-let searchForm = document.getElementById("searchForm");
+let initElement = (() => {
+  let arrow = document.querySelectorAll(".arrow");
+  arrow[0].addEventListener("click", goTop);
 
-arrow[0].addEventListener("click", goTop);
-searchForm.addEventListener("keyup", showArrow);
-
-arrow[0].style.display = "none";
+  $(".arrow").hide();
+})();
 
 $(document).ready(() => {
   $("#searchForm").on("submit", e => {
+    $(".arrow").show();
     let searchText = $("#searchText").val();
+
+    clearStorage();
 
     getMovies(searchText);
     e.preventDefault();
@@ -23,6 +25,11 @@ function getMovies(searchText) {
         searchText
     )
     .then(response => {
+      if (localStorage.length === 0) {
+        let stringObj = JSON.stringify(response);
+        localStorage.setItem(searchText, stringObj);
+      }
+
       let movies = response.data.results;
 
       if (typeof movies === "undefined" || movies.length === 0) {
@@ -37,7 +44,7 @@ function getMovies(searchText) {
             '<img onerror="handleMissingImg(this);" src="http://image.tmdb.org/t/p/w185/' +
             movie.poster_path +
             '">';
-          output += "<h5>" + movie.title.substring(0, 40) + "</h5>";
+          output += "<h5>" + movie.title.substring(0, 26) + "</h5>";
           output +=
             "<a onclick=movieSelected(" +
             movie.id +
@@ -56,11 +63,12 @@ function getMovies(searchText) {
 
 function handleMissingImg(image) {
   image.onerror = "";
-  image.src = "../../img/noImage.jpg";
+  image.src = "/img/noImage.jpg";
+  return false;
 }
 
 function movieSelected(id) {
-  // Sending data through sessionStorage;
+  // Sending data through sessionStorage
   // Save ID
   sessionStorage.setItem("movieId", id);
   window.location = "movie.html";
@@ -68,7 +76,8 @@ function movieSelected(id) {
 }
 
 function getMovie() {
-  // Take 'movieId' from sessionStorage
+  displayArrow();
+  // Taking 'movieId' from sessionStorage
   let movieId = sessionStorage.getItem("movieId");
 
   // New request for single movie
@@ -79,7 +88,7 @@ function getMovie() {
         "?api_key=fa155f635119344d33fcb84fb807649b"
     )
     .then(response => {
-      //Init data for single movie
+      // Init data for single movie
       let movie = response.data;
 
       let genres = movie.genres;
@@ -95,7 +104,7 @@ function getMovie() {
       const companyNames = getNames(production_companies);
       // ...end of init data
 
-      // 'output' inside template string for single movie
+      // 'output' inside template string literals for single movie
       let output = `
                <div class="row">
                   <div class="col-md-4">
@@ -138,7 +147,7 @@ function getMovie() {
                         <a href="https://www.imdb.com/title/${
                           movie.imdb_id
                         }" class="btn btn-info" target="_blanc">View iMDB</a>
-                        <a href="index.html" class="btn btn-primary">Go Back To Search</a>
+                        <a onclick="changeLocation();" class="btn btn-primary" href="#">Go Back</a>
                      </div>
                   </div>
                </div>
@@ -153,7 +162,7 @@ function getMovie() {
 }
 
 function errorPage() {
-  let errPage = (window.location = "../../error/error.html");
+  let errPage = (window.location = "/error/error.html");
   return errPage;
 }
 
@@ -166,4 +175,61 @@ function showArrow(event) {
   if (event.keyCode === 13) {
     arrow[0].style.display = "inline";
   }
+}
+
+function clearStorage() {
+  localStorage.clear();
+}
+
+function displayArrow() {
+  let arrow = document.querySelectorAll(".arrow");
+  arrow[0].addEventListener("click", goTop);
+
+  arrow[0].style.display = "inline";
+}
+
+function changeLocation() {
+  window.location = "storedMovies.html";
+  return false;
+}
+
+function getStoredObject(object) {
+  displayArrow();
+
+  // Getting key and object value from local storage
+  let key = localStorage.key(0);
+  object = JSON.parse(localStorage.getItem(key));
+
+  let objects = object.data.results;
+
+  // Inserting text into h3 element
+  let h3Element = document.getElementById("message");
+  let textIn = document.createTextNode(`Movie Results for Search: "${key}"`);
+  h3Element.style.color = "#ffe4b5";
+  h3Element.appendChild(textIn);
+
+  // Insert element into DOM
+  let jumbotron = document.querySelector(".container .jumbotron");
+  let h3 = document.querySelector(".container h3");
+  jumbotron.insertBefore(h3Element, h3);
+
+  let output = "";
+
+  $.each(objects, (index, object) => {
+    output += `
+              <div class="col-md-3">
+                <div class="well text-center">
+                  <img onerror="handleMissingImg(this);" src="http://image.tmdb.org/t/p/w185/${
+                    object.poster_path
+                  }" class="thumnail">
+                  <h5>${object.title.substring(0, 26)}</h5>                  
+                  <a onclick="movieSelected(${
+                    object.id
+                  });" class="btn btn-info" href="#">Movie Details</a>
+                </div>
+              </div>
+    `;
+  });
+
+  $("#storedMovies").html(output);
 }
