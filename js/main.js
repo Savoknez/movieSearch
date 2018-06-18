@@ -221,7 +221,7 @@ function getStoredObject(object) {
                 <div class="well text-center">
                   <img onerror="handleMissingImg(this);" src="http://image.tmdb.org/t/p/w185/${
                     object.poster_path
-                  }" class="thumnail">
+                  }" class="thumbnail">
                   <h5>${object.title.substring(0, 26)}</h5>                  
                   <a onclick="movieSelected(${
                     object.id
