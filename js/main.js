@@ -63,7 +63,7 @@ function getMovies(searchText) {
 
 function handleMissingImg(image) {
   image.onerror = "";
-  image.src = "/img/noImage.jpg";
+  image.src = "img/noImage.jpg";
   return false;
 }
 
